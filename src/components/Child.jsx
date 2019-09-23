@@ -5,7 +5,7 @@ class Child extends React.Component {
     super(props);
   }
   render() {
-    return <p>I'm child~</p>;
+    return <p>I&#x27;m child~</p>;
   }
 }
 

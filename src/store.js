@@ -7,10 +7,9 @@ function reducer(state = defaultState, action) {
   const [directive, key] = action.type.split("#");
   switch (directive) {
     case "update":
-      return {
-        ...state,
+      return Object.assign({}, state, {
         [key]: action.value
-      };
+      });
   }
   return state;
 }

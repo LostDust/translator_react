@@ -10,7 +10,7 @@ class Other extends React.Component {
   render() {
     return (
       <section>
-        <p>I'm other~</p>
+        <p>I&#x27;m other~</p>
         <Router>
           <Link to="/other/child">child</Link>
           <Link to="/other/null">null</Link>
