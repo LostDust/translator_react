@@ -18,12 +18,32 @@ module.exports = {
   ],
   module: {
     rules: [
-      // { test: /\.css$/, use: ["style-loader", "css-loader?modules"] },
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     "style-loader",
+      //     {
+      //       loader: "css-loader",
+      //       options: {
+      //         modules: {
+      //           localIdentName: "[name]-[local]"
+      //         }
+      //       }
+      //     }
+      //   ]
+      // },
       {
         test: /\.less$/,
         use: [
           "style-loader",
-          "css-loader?modules&localIdentName=[name]-[local]",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]-[local]"
+              }
+            }
+          },
           "less-loader"
         ]
       },

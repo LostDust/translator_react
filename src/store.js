@@ -1,7 +1,8 @@
 import { createStore } from "redux";
 
 const defaultState = {
-  msg: "Hello~"
+  input: "hello",
+  output: ""
 };
 function reducer(state = defaultState, action) {
   const [directive, key] = action.type.split("#");

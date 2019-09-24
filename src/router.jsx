@@ -1,29 +1,22 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 
-import Home from "./components/Home.jsx";
-import Other from "./components/Other.jsx";
-import Child from "./components/Child.jsx";
+import Main from "./components/Main.jsx";
+import Table from "./components/Table.jsx";
 
 const routes = [
   {
     path: "/",
     exact: true,
-    redirect: "/home"
+    redirect: "/main"
   },
   {
-    path: "/home",
-    component: Home
+    path: "/main",
+    component: Main
   },
   {
-    path: "/other",
-    component: Other,
-    children: [
-      {
-        path: "child",
-        component: Child
-      }
-    ]
+    path: "/table",
+    component: Table
   }
 ];
 
