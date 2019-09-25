@@ -45,7 +45,7 @@ class Translate extends React.Component {
     )
       .then(res => res.text())
       .then(msg => {
-        this.setState({ output: msg });
+        store.dispatch({ type: "update#output", value: msg });
       });
 
     // store.dispatch({ type: "qurey#has" });

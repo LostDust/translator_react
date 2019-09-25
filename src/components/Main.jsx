@@ -10,7 +10,7 @@ class Main extends Component {
     return (
       <section className="main" style={{ marginTop: "30px" }}>
         <Translate></Translate>
-        {/* <Menu></Menu> */}
+        <Menu></Menu>
       </section>
     );
   }

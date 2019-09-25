@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import store from "../store.js";
-import "./Menu.less";
+import styles from "./Menu.less";
 
 class Menu extends Component {
   constructor() {
@@ -11,26 +11,22 @@ class Menu extends Component {
   storeUpdate() {
     this.setState(store.getState());
   }
-  selectChange(e) {
+  componentWillUnmount() {
+    this.clear();
+  }
+  storeChange(e) {
     const action = {
-      type: "Update#store",
+      type: "update#store",
       value: e.target.value
     };
     store.dispatch(action);
   }
   addItem() {
-    const action = {
-      type: "Add#",
-      value: ""
-    };
-    store.dispatch(action);
-  }
-  componentWillUnmount() {
-    this.clear();
+    store.dispatch({ type: "add#" });
   }
   render() {
     return (
-      <section id="menu">
+      <section className={styles.menu}>
         <ul>
           <li>
             <span>收藏到</span>
@@ -38,15 +34,15 @@ class Menu extends Component {
           <li>
             <select
               value={this.state.store}
-              onChange={e => this.selectChange(e)}
+              onChange={e => this.storeChange(e)}
             >
-              <option value="default">default</option>
-              <option value="other">other</option>
+              <option>default</option>
+              <option>other</option>
             </select>
           </li>
           <li>
             <img
-              src={`http://localhost:9091/static/png/star${
+              src={`http://203.195.141.131:3100/src/png/star${
                 this.state.has ? "-active" : ""
               }.png`}
               onClick={() => this.addItem()}
