@@ -3,6 +3,7 @@ import { HashRouter as Router, Link } from "react-router-dom";
 // import { BrowserRouter as Router, Link } from "react-router-dom";
 import RouteView from "./router.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Alert from "./components/Alert.jsx";
 
 class App extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class App extends React.Component {
       <Router>
         <Navbar></Navbar>
         <RouteView></RouteView>
+        <Alert></Alert>
       </Router>
     );
   }

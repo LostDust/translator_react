@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import store from "../store.js";
 import styles from "./Table.less";
 
-class Table extends Component {
+class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = store.getState();

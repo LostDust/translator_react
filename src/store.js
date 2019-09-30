@@ -10,7 +10,6 @@ const defaultState = {
 };
 
 function save(data, info) {
-  console.log(data);
   fetch(`http://203.195.141.131:3100/save/`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -19,10 +18,7 @@ function save(data, info) {
     .then(res => res.text())
     .then(msg => {
       console.log(msg);
-      store.dispatch({
-        type: "alert#",
-        value: info
-      });
+      store.dispatch({ type: "alert#", value: info });
     });
 }
 
@@ -60,12 +56,11 @@ function reducer(state = defaultState, action) {
       newState.alertList.shift();
       break;
     case "alert": {
-      console.log(`alert: ${action.value}`);
-      // const id = new Date().getTime();
-      // newState.alertList.push({ content: action.value, id });
-      // setTimeout(() => {
-      //   newState.alertList.shift();
-      // }, 2000);
+      const id = new Date().getTime();
+      newState.alertList.push({ content: action.value, id });
+      setTimeout(() => {
+        store.dispatch({ type: "shift#" });
+      }, 2000);
     }
   }
   return newState;
