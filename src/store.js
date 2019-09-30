@@ -1,18 +1,26 @@
 import { createStore } from "redux";
 
+const local = Object.keys(localStorage).map(item => {
+  // if (item === "loglevel:webpack-dev-server") return;
+  return {
+    from: item,
+    to: localStorage.getItem(item)
+  };
+});
 const defaultState = {
   input: "hello",
   output: "",
-  store: "default",
+  store: "public",
   has: false,
-  data: {},
+  data: { local },
   alertList: []
 };
+console.log(local);
 
 function save(data, info) {
   fetch(`http://203.195.141.131:3100/save/`, {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify(data.public),
     headers: { "content-type": "application/json" }
   })
     .then(res => res.text())
@@ -46,10 +54,13 @@ function reducer(state = defaultState, action) {
     case "add":
       newState.data[state.store].push({ from: state.input, to: state.output });
       newState.has = true;
+      if (state.store === "local")
+        localStorage.setItem(state.input, state.output);
       save(newState.data, "添加成功");
       break;
     case "remove":
       newState.data[state.store].splice(action.value, 1);
+      if (state.store === "local") localStorage.removeItem(state.input);
       save(newState.data, "删除成功");
       break;
     case "shift":
@@ -70,8 +81,8 @@ const store = createStore(reducer);
 fetch(`http://203.195.141.131:3100/database/`)
   .then(res => res.json())
   .then(msg => {
-    defaultState.data = msg;
-    store.dispatch({ type: "update#data", value: msg });
+    defaultState.data.public = msg;
+    store.dispatch({ type: "update#data", value: defaultState.data });
   });
 
 export default store;

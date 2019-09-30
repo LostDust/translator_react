@@ -79,7 +79,7 @@ class Table extends React.Component {
                         onClick={() => this.removeItem(index)}
                       />
                       <img
-                        src="http://203.195.141.131:3100/src/png/message.png"
+                        src="http://203.195.141.131:3100/src/png/tool.png"
                         alt="message"
                         onClick={e => this.alertInfo(e)}
                       />

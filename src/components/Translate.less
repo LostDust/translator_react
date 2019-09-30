@@ -34,13 +34,13 @@
     outline: none;
     padding: 4px 8px;
     box-shadow: 1px 1px 3px 0 #999;
-  }
-  textarea:focus {
-    border: 1px violet solid;
-  }
-  textarea:last-child {
-    margin-top: 4px;
-    width: 90%;
+    &:focus {
+      border: 1px violet solid;
+    }
+    &:last-child {
+      margin-top: 4px;
+      width: 90%;
+    }
   }
   #form-group {
     display: flex;
@@ -75,13 +75,14 @@
       cursor: pointer;
       border: none;
       box-shadow: 1px 1px 3px 0 #999;
-    }
-    button:hover {
-      background: cyan;
-    }
-    button:active {
-      background: rgb(15, 179, 179);
-      color: #eee;
+
+      &:hover {
+        background: cyan;
+      }
+      &:active {
+        background: rgb(15, 179, 179);
+        color: #eee;
+      }
     }
   }
 }

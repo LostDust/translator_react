@@ -21,6 +21,13 @@ class Menu extends Component {
     };
     store.dispatch(action);
   }
+  changeValue(e, key) {
+    const action = {
+      type: `update#${key}`,
+      value: e.target.value
+    };
+    store.dispatch(action);
+  }
   addItem() {
     if (!this.state.input || !this.state.output) return;
     if (this.state.has) return;
@@ -38,8 +45,9 @@ class Menu extends Component {
               value={this.state.store}
               onChange={e => this.storeChange(e)}
             >
-              <option>default</option>
-              <option>other</option>
+              {Object.keys(this.state.data).map((item, index) => {
+                return <option key={index}>{item}</option>;
+              })}
             </select>
           </li>
           <li>
@@ -48,6 +56,13 @@ class Menu extends Component {
                 this.state.has ? "-active" : ""
               }.png`}
               onClick={() => this.addItem()}
+            />
+          </li>
+          <li>
+            <img
+              src={`http://203.195.141.131:3100/src/png/delete.png`}
+              alt="delete.png"
+              onClick={() => localStorage.clear()}
             />
           </li>
         </ul>

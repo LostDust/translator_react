@@ -28,6 +28,7 @@
         cursor: pointer;
       }
       ul {
+        overflow: hidden;
         width: 100%;
         position: absolute;
         opacity: 0;
@@ -44,14 +45,14 @@
           border-top: 1px #aaa solid;
         }
       }
-    }
-    li:hover > a,
-    li:hover > span {
-      background: rgba(81, 81, 81, 0.2);
-    }
-    li:hover ul {
-      opacity: 1;
-      visibility: visible;
+      &:hover > a,
+      &:hover > span {
+        background: rgba(81, 81, 81, 0.2);
+      }
+      &:hover ul {
+        opacity: 1;
+        visibility: visible;
+      }
     }
   }
 }
