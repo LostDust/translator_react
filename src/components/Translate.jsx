@@ -39,7 +39,6 @@ class Translate extends React.Component {
       case "英文":
         to = "en";
     }
-
     fetch(
       `http://203.195.141.131:3100/api?q=${this.state.input}&from=${from}&to=${to}`
     )
@@ -47,8 +46,7 @@ class Translate extends React.Component {
       .then(msg => {
         store.dispatch({ type: "update#output", value: msg });
       });
-
-    // store.dispatch({ type: "qurey#has" });
+    store.dispatch({ type: "query#has" });
   }
   changeValue(e, key) {
     this.setState({ [key]: e.target.value });

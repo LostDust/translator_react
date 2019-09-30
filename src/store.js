@@ -6,28 +6,69 @@ const defaultState = {
   store: "default",
   has: false,
   data: {},
-  list: []
+  alertList: []
 };
+
+function save(data, info) {
+  console.log(data);
+  fetch(`http://203.195.141.131:3100/save/`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "content-type": "application/json" }
+  })
+    .then(res => res.text())
+    .then(msg => {
+      console.log(msg);
+      store.dispatch({
+        type: "alert#",
+        value: info
+      });
+    });
+}
 
 function reducer(state = defaultState, action) {
   const [directive, key] = action.type.split("#");
+  const newState = Object.assign({}, state);
   switch (directive) {
-    case "update":
-      return Object.assign({}, state, {
-        [key]: action.value
+    case "update": {
+      newState[key] = action.value;
+      if (key != "store") break;
+      if (!state.data[newState.store]) break;
+      const result = state.data[newState.store].some(item => {
+        return item.from == state.input;
       });
-    case "add": {
-      let newState = Object.assign({}, state);
-      newState.data[state.store].push({ from: state.input, to: state.output });
-      return newState;
+      newState.has = result ? true : false;
+      break;
     }
-    case "remove": {
-      let newState = Object.assign({}, state);
+    case "query": {
+      const result = state.data[state.store].some(item => {
+        return item.from == state.input;
+      });
+      newState[key] = result ? true : false;
+      break;
+    }
+    case "add":
+      newState.data[state.store].push({ from: state.input, to: state.output });
+      newState.has = true;
+      save(newState.data, "添加成功");
+      break;
+    case "remove":
       newState.data[state.store].splice(action.value, 1);
-      return newState;
+      save(newState.data, "删除成功");
+      break;
+    case "shift":
+      newState.alertList.shift();
+      break;
+    case "alert": {
+      console.log(`alert: ${action.value}`);
+      // const id = new Date().getTime();
+      // newState.alertList.push({ content: action.value, id });
+      // setTimeout(() => {
+      //   newState.alertList.shift();
+      // }, 2000);
     }
   }
-  return state;
+  return newState;
 }
 
 const store = createStore(reducer);

@@ -6,14 +6,13 @@ class Table extends Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
-    this.state.store = this.props.location.search.slice(1).split("=")[1];
-    // console.log(this.state.data);
-    // this.state.list = this.state.data[this.state.store];
+    // update store's store name
+    const nowStore = this.props.location.search.slice(1).split("=")[1];
+    store.dispatch({ type: "update#store", value: nowStore });
+    // bind hashChange event
     this.hashchange = this.hashchange.bind(this);
-    this.clear = store.subscribe(this.storeUpdate.bind(this));
-  }
-  componentDidMount() {
     window.addEventListener("hashchange", this.hashchange);
+    this.clear = store.subscribe(this.storeUpdate.bind(this));
   }
   componentWillUnmount() {
     this.clear();
@@ -21,17 +20,11 @@ class Table extends Component {
   }
   storeUpdate() {
     this.setState(store.getState());
-    this.setState({ list: this.state.data[this.state.store] });
   }
   notFind(index) {
-    // $(e.target)
-    //   .parent()
-    //   .find("[alt=play-circle]")
-    //   .css("visibility", "hidden");
-    let a = document.querySelector(
+    document.querySelector(
       `tbody tr:nth-child(${index + 1}) [alt=play-circle]`
-    );
-    console.log(a);
+    ).style.visibility = "hidden";
   }
   play(index) {
     document.querySelector(`tbody tr:nth-child(${index + 1}) audio`).play();
@@ -47,11 +40,8 @@ class Table extends Component {
     alert("Test");
   }
   hashchange() {
-    const store = this.props.location.search.slice(1).split("=")[1];
-    this.setState({
-      store,
-      list: this.state.data[store]
-    });
+    const nowStore = this.props.location.search.slice(1).split("=")[1];
+    store.dispatch({ type: "update#store", value: nowStore });
   }
   render() {
     return (
@@ -66,36 +56,37 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.list.map((item, index) => {
-              return (
-                <tr key={item.from}>
-                  <td>{index + 1}</td>
-                  <td>{item.from}</td>
-                  <td>{item.to}</td>
-                  <td>
-                    <audio
-                      src={`http://203.195.141.131:3100/src/media/${item.from}.mp3`}
-                      onError={() => this.notFind(index)}
-                    ></audio>
-                    <img
-                      src="http://203.195.141.131:3100/src/png/play-circle.png"
-                      alt="play-circle"
-                      onClick={() => this.play(index)}
-                    />
-                    <img
-                      src="http://203.195.141.131:3100/src/png/close-circle.png"
-                      alt="close-circle"
-                      onClick={() => this.removeItem(index)}
-                    />
-                    <img
-                      src="http://203.195.141.131:3100/src/png/message.png"
-                      alt="message"
-                      onClick={e => this.alertInfo(e)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
+            {this.state.data[this.state.store] &&
+              this.state.data[this.state.store].map((item, index) => {
+                return (
+                  <tr key={item.from}>
+                    <td>{index + 1}</td>
+                    <td>{item.from}</td>
+                    <td>{item.to}</td>
+                    <td>
+                      <audio
+                        src={`http://203.195.141.131:3100/src/media/${item.from}.mp3`}
+                        onError={() => this.notFind(index)}
+                      ></audio>
+                      <img
+                        src="http://203.195.141.131:3100/src/png/play-circle.png"
+                        alt="play-circle"
+                        onClick={() => this.play(index)}
+                      />
+                      <img
+                        src="http://203.195.141.131:3100/src/png/close-circle.png"
+                        alt="close-circle"
+                        onClick={() => this.removeItem(index)}
+                      />
+                      <img
+                        src="http://203.195.141.131:3100/src/png/message.png"
+                        alt="message"
+                        onClick={e => this.alertInfo(e)}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </section>

@@ -22,6 +22,8 @@ class Menu extends Component {
     store.dispatch(action);
   }
   addItem() {
+    if (!this.state.input || !this.state.output) return;
+    if (this.state.has) return;
     store.dispatch({ type: "add#" });
   }
   render() {
