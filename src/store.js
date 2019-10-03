@@ -15,7 +15,6 @@ const defaultState = {
   data: { local },
   alertList: []
 };
-console.log(local);
 
 function save(data, info) {
   fetch(`http://203.195.141.131:3100/save/`, {
