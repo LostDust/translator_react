@@ -58,13 +58,6 @@ class Menu extends Component {
               onClick={() => this.addItem()}
             />
           </li>
-          <li>
-            <img
-              src={`http://203.195.141.131:3100/src/png/delete.png`}
-              alt="delete.png"
-              onClick={() => localStorage.clear()}
-            />
-          </li>
         </ul>
       </section>
     );
