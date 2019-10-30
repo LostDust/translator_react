@@ -16,11 +16,11 @@ class Translate extends React.Component {
   storeUpdate() {
     this.setState(store.getState());
   }
-  join(json) {
-    let str = `${json.appid}${json.q}${json.salt}bR4o8cuH6rqJPyclgxDU`;
-    let sign = hex_md5(str);
-    return `?q=${json.q}&from=${json.from}&to=${json.to}&appid=${json.appid}&salt=${json.salt}&sign=${sign}`;
-  }
+  // join(json) {
+  //   let str = `${json.appid}${json.q}${json.salt}bR4o8cuH6rqJPyclgxDU`;
+  //   let sign = hex_md5(str);
+  //   return `?q=${json.q}&from=${json.from}&to=${json.to}&appid=${json.appid}&salt=${json.salt}&sign=${sign}`;
+  // }
   translation() {
     if (!this.state.input) return;
     let from = this.state.fromType;

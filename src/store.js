@@ -77,6 +77,7 @@ function reducer(state = defaultState, action) {
 }
 
 const store = createStore(reducer);
+
 fetch(`http://203.195.141.131:3100/database/`)
   .then(res => res.json())
   .then(msg => {

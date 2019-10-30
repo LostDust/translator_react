@@ -52,7 +52,7 @@ class Menu extends Component {
           </li>
           <li>
             <img
-              src={`http://203.195.141.131:3100/src/png/star${
+              src={`http://203.195.141.131:3100/static/png/star${
                 this.state.has ? "-active" : ""
               }.png`}
               onClick={() => this.addItem()}
